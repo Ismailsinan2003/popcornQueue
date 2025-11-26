@@ -16,8 +16,7 @@ html {
 }
 
 body {
-  background-color: white;
-  color: black;
+  background-color: rgb(118, 118, 118);
 }
 
 ul {
@@ -82,6 +81,7 @@ h5 {
   border: none;
   border-radius: 1rem;
   background-color: #ff6b6b;
+  color: white;
 }
 
 .search::placeholder {
@@ -97,13 +97,6 @@ h5 {
   box-shadow: 0 0 0 3px rgba(224, 49, 49, 0.3);
   transform: scale(1.02);
   transition: all 0.3s ease;
-}
-
-.error,
-.loader {
-  text-align: center;
-  margin: 8rem 0;
-  font-size: 2.8rem;
 }
 
 /* ---------------------------------------------------------MAIN SECTION -------------------------------------------------------------------- */
@@ -133,11 +126,16 @@ h5 {
   border-bottom: 1px solid gray;
   overflow: auto;
   position: relative;
+  cursor: pointer;
+}
+
+.box li:hover {
+  background-color: #343a40;
 }
 
 .btn-delete {
   position: absolute;
-  right: 4rem;
+  right: 2.4rem;
   top: 2rem;
   height: 2rem;
   aspect-ratio: 1;
@@ -202,6 +200,24 @@ h5 {
   display: flex;
   gap: 1rem;
   align-items: center;
+}
+
+.details-imdb {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.details-imdb img {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.error,
+.loader {
+  font-size: 2.4rem;
+  text-align: center;
+  margin: 2rem 0;
 }
 
 /* ------------------------- SCROLLBAR STYLE ------------------------- */
@@ -276,6 +292,9 @@ h5 {
   display: flex;
   align-items: center;
   justify-content: center;
+  /*  
+  
+   */
 }
 
 .details-info {
@@ -283,4 +302,21 @@ h5 {
   flex-direction: column;
   padding: 2rem 4rem;
   gap: 2rem;
+}
+
+.star-rating {
+  margin: 1rem;
+  padding: 2rem;
+}
+
+.add-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: blue;
+  color: white;
+  border: none;
 }

@@ -88,6 +88,11 @@
   .movie-details {
     padding: 1rem 2rem;
   }
+
+  .details-imdb img {
+    height: 1.8rem;
+    width: 1.8rem;
+  }
 }
 
 /* phone portrait: < 576px  */
@@ -144,5 +149,10 @@
 
   .details img {
     height: 120px;
+  }
+
+  .details-imdb img {
+    height: 1.5rem;
+    width: 1.5rem;
   }
 }
