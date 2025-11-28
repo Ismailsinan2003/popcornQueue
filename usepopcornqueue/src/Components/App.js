@@ -1,56 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import "./index.css";
-import "./queries.css";
+import "../styles/index.css";
+import "../styles/queries.css";
 import StarRating from "./StarRating";
-import { useMovies } from "./useMovies";
-import { useLocalStorageState } from "./useLocalStorageState";
-
-// const tempMovieData = [
-//   {
-//     imdbID: "tt1375666",
-//     Title: "Inception",
-//     Year: "2010",
-//     Poster:
-//       "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
-//   },
-//   {
-//     imdbID: "tt0133093",
-//     Title: "The Matrix",
-//     Year: "1999",
-//     Poster:
-//       "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
-//   },
-//   {
-//     imdbID: "tt6751668",
-//     Title: "Parasite",
-//     Year: "2019",
-//     Poster:
-//       "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
-//   },
-// ];
-
-// const tempWatchedData = [
-//   {
-//     imdbID: "tt1375666",
-//     Title: "Inception",
-//     Year: "2010",
-//     Poster:
-//       "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
-//     runtime: 148,
-//     imdbRating: 8.8,
-//     userRating: 10,
-//   },
-//   {
-//     imdbID: "tt0088763",
-//     Title: "Back to the Future",
-//     Year: "1985",
-//     Poster:
-//       "https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
-//     runtime: 116,
-//     imdbRating: 8.5,
-//     userRating: 9,
-//   },
-// ];
+import { useMovies } from "../Hooks/useMovies";
+import { useLocalStorageState } from "../Hooks/useLocalStorageState";
+import { useKey } from "../Hooks/useKey";
+import Navbar from "./Navbar";
+import Logo from "./Logo";
+import Search from "./Search";
+import Numresult from "./Numresult";
+import Main from "./Main";
+import Loader from "./Loader";
+import Error from "./Error";
+import MovieList from "./MovieList";
 
 export default function App() {
   const [query, setQuery] = useState("");
@@ -116,133 +78,8 @@ export default function App() {
   );
 }
 
-function Navbar({ children }) {
-  return <nav className="navbar">{children}</nav>;
-}
-
-function Logo() {
-  return (
-    <div className="logo">
-      <img src="popcornQueue-logo.svg" alt="logo" />
-      <h4 className="logo-text">popcornQueue</h4>
-    </div>
-  );
-}
-
-function Search({ query, setQuery, onCloseMovie }) {
-  const inputEl = useRef(null);
-
-  useEffect(
-    function () {
-      function callback(e) {
-        if (document.activeElement === inputEl.current) {
-          return;
-        }
-
-        if (e.code === "Enter") {
-          inputEl.current.focus();
-          setQuery("");
-          onCloseMovie();
-        }
-      }
-
-      document.addEventListener("keydown", callback);
-
-      return function () {
-        document.removeEventListener("keydown", callback);
-      };
-    },
-    [setQuery, onCloseMovie]
-  );
-
-  return (
-    <input
-      type="text"
-      placeholder="Search Movies..."
-      className="search"
-      value={query}
-      ref={inputEl}
-      onChange={(e) => setQuery(e.target.value)}
-    />
-  );
-}
-
-function Numresult({ movies }) {
-  return <p className="numResult">Found {movies.length} results</p>;
-}
-
-function Main({ children }) {
-  return <main className="main-section">{children}</main>;
-}
-
-function Loader() {
-  return <p className="loader">Loading...</p>;
-}
-
-function Error({ message }) {
-  return <p className="error">⛔ {message}</p>;
-}
-
-function MovieList({ movies, onMovieClick }) {
-  return (
-    <ul>
-      {movies.map((movie) => (
-        <Movies movie={movie} key={movie.imdbID} onMovieClick={onMovieClick} />
-      ))}
-    </ul>
-  );
-}
-
-function Movies({ movie, onMovieClick }) {
-  return (
-    <>
-      <li onClick={() => onMovieClick(movie.imdbID)}>
-        <img
-          className="movie-img"
-          src={movie.Poster}
-          alt={movie.Title}
-          height="100px"
-          width="70px"
-        />
-        <h5>{movie.Title}</h5>
-        <p>
-          <img
-            className="search-logo"
-            src="ReleaseYear.svg"
-            alt="releaseDate"
-          />
-          {movie.Year}
-        </p>
-      </li>
-    </>
-  );
-}
-
 function Box({ children }) {
-  return (
-    <section className="box">
-      {/* <div class="details">
-          <button class="btn-back">&#x1F860;</button>
-          <img src="images/inception.jpg" alt="" height="200px" />
-          <div class="movie-details">
-            <h5>Inception</h5>
-            <p>07 november 2014 . 169 min</p>
-            <p>Adventure, Drama, sci-Fi</p>
-            <p>⭐ 8.8 IMDb rating</p>
-          </div>
-        </div>
-
-        <div class="details-info">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure,
-            reprehenderit!
-          </p>
-          <p>Lorem ipsum dolor sit amet.</p>
-          <p>Lorem, ipsum.</p>
-        </div>  */}
-      {children}
-    </section>
-  );
+  return <section className="box">{children}</section>;
 }
 
 const KEY = "608e27e7";
@@ -256,42 +93,12 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
 
   useEffect(
     function () {
-      function callback(e) {
-        if (e.code === "Escape") {
-          onCloseMovie();
-        }
-      }
-      document.addEventListener("keydown", callback);
-
-      return function () {
-        document.removeEventListener("keydown", callback);
-      };
-    },
-    [onCloseMovie]
-  );
-
-  useEffect(
-    function () {
       if (userRating) countRef.current = countRef.current + 1;
     },
     [userRating]
   );
 
-  useEffect(
-    function () {
-      function callback(e) {
-        if (e.code === "Escape") {
-          onCloseMovie();
-        }
-      }
-      document.addEventListener("keydown", callback);
-
-      return function () {
-        document.removeEventListener("keydown", callback);
-      };
-    },
-    [onCloseMovie]
-  );
+  useKey("Escape", onCloseMovie);
 
   useEffect(
     function () {
